@@ -1,52 +1,135 @@
-      
-"""
-1.1 Phân tích Input/Output
-Input:
-Tên biến            Kiểu dữ liệu    Ràng buộc
-total_room          int             ≥ 0,nếu < 0 → dừng chương trình
-row                 int             ≥ 0, ≤ 10, nếu < 0 → bỏ qua phòng
-col                 int             ≥ 0, ≤ 10, nếu > 10 → cảnh báo
+# =========================================================
+# PHÂN TÍCH BÀI TOÁN
+# =========================================================
+# 1. Mục tiêu chương trình
+# - Xây dựng hệ thống đánh giá sĩ số lớp học
+# - Kiểm tra số lượng học viên đi học của từng lớp
+# - In trạng thái lớp học sau khi nhập dữ liệu hợp lệ
+#
+# =========================================================
+# INPUT
+# =========================================================
+# 1. branch_count
+# - Ý nghĩa: Số lượng chi nhánh cần kiểm tra
+# - Kiểu dữ liệu: int
+#
+# 2. student_count
+# - Ý nghĩa: Số học viên đi học của từng lớp
+# - Kiểu dữ liệu: int
+#
+# =========================================================
+# OUTPUT
+# =========================================================
+# 1. Nếu số học viên >= 20
+# -> "Lớp học ổn định"
+#
+# 2. Nếu số học viên từ 1 -> 19
+# -> "Lớp cần được nhắc nhở theo dõi"
+#
+# 3. Nếu số học viên == 0
+# -> "Lớp vắng toàn bộ. Bỏ qua kiểm tra trạng thái."
+#
+# 4. Nếu số học viên < 0
+# -> "Số học viên không hợp lệ. Vui lòng nhập lại."
+#
+# =========================================================
+# THUẬT TOÁN XỬ LÝ
+# =========================================================
+# Bước 1:
+# - Nhập số lượng chi nhánh
+#
+# Bước 2:
+# - Dùng vòng lặp for để duyệt từng chi nhánh
+#
+# Bước 3:
+# - Mỗi chi nhánh có 2 lớp học
+# - Dùng vòng lặp for để duyệt từng lớp
+#
+# Bước 4:
+# - Nhập số học viên đi học
+# - Nếu dữ liệu âm:
+#   + Thông báo lỗi
+#   + Yêu cầu nhập lại
+#
+# Bước 5:
+# - Sau khi dữ liệu hợp lệ:
+#   + Nếu == 0:
+#       -> Lớp vắng toàn bộ
+#   + Nếu >= 20:
+#       -> Lớp học ổn định
+#   + Ngược lại:
+#       -> Lớp cần được nhắc nhở theo dõi
+#
+# =========================================================
+# KỸ THUẬT ĐƯỢC SỬ DỤNG
+# =========================================================
+# - Vòng lặp for
+# - Vòng lặp while True
+# - Câu điều kiện if / elif / else
+# - Kiểm tra dữ liệu hợp lệ
+# - Xử lý Edge Cases
+# =========================================================
 
-Output:
-Điều kiện                   Kết quả
-total_room < 0              In lỗi → thoát
-row < 0                     In lỗi → bỏ qua phòng đó
-row > 10 hoặc col > 10      Cảnh báo phòng quá lớn
-Hợp lệ                      In sơ đồ ghế bằng *
+# Nhập số lượng chi nhánh
+branch_count = int(input("Nhập số lượng chi nhánh: "))
 
-1.2 Pseudocode
-Lặp vô hạn:
-    Nhập total_room
-    Nếu total_room < 0 → in lỗi, thoát
+# Duyệt từng chi nhánh
+for branch_index in range(1, branch_count + 1):
 
-    Lặp từng phòng 1 → total_room:
-        Nhập row, col
-        Nếu row < 0 hoặc col < 0 → in lỗi, bỏ qua (continue)
-        Nếu row > 10 hoặc col > 10 → in cảnh báo
-        In sơ đồ ghế: lặp row lần, mỗi lần in "* " × col
+    print(f"\nChi nhánh {branch_index}:")
 
-    Thoát vòng while
-"""
+    # Mỗi chi nhánh có 2 lớp học
+    for class_index in range(1, 3):
 
-while True:
-    total_room = int(input("Nhập số phòng học cần kiểm tra: "))
-    if total_room < 0:
-        print("Số lượng phòng không hợp lệ!\n")
-        break 
+        # Kiểm tra dữ liệu hợp lệ
+        while True:
 
-    for room_index in range(1, total_room + 1):
-        print(f"\n--- Phòng {room_index} ---")
-        row = int(input(f"Nhập số hàng ghế của phòng {room_index}: "))
-        col = int(input(f"Nhập số ghế trên 1 hàng của phòng {room_index}: "))
-        if row < 0 or col < 0:
-            print("Dữ liệu phòng học không hợp lệ. Bỏ qua phòng này.\n")
-            continue
-        if row > 10 or col > 10:
-            print("Cảnh báo: Phòng quá lớn!\n")
-        print(f"\nKết quả kiểm tra của phòng {room_index}:")
-        for current_row in range(row):
-            print("* " * col)
-        print()
-    break
+            # Nhập số học viên đi học
+            student_count = int(
+                input(
+                    f"Nhập số học viên đi học của lớp {class_index}: "
+                )
+            )
 
-    
+            # EDGE CASE 1: Số học viên âm
+            if student_count < 0:
+
+                print(
+                    "Số học viên không hợp lệ. "
+                    "Vui lòng nhập lại."
+                )
+
+            else:
+                # Dữ liệu hợp lệ -> thoát vòng lặp
+                break
+
+        # EDGE CASE 2: Lớp vắng toàn bộ
+        if student_count == 0:
+
+            print(
+                f"Chi nhánh {branch_index} - "
+                f"Lớp {class_index}: "
+                "Lớp vắng toàn bộ, "
+                "bỏ qua kiểm tra trạng thái."
+            )
+
+        # Lớp học ổn định
+        elif student_count >= 20:
+
+            print(
+                f"Chi nhánh {branch_index} - "
+                f"Lớp {class_index}: "
+                "Lớp học ổn định"
+            )
+              
+        # Lớp cần được nhắc nhở
+        else:
+
+            print(
+                f"Chi nhánh {branch_index} - "
+                f"Lớp {class_index}: "
+                "Lớp cần được nhắc nhở theo dõi"
+            )
+
+# Kết thúc chương trình
+print("\nĐã hoàn tất đánh giá sĩ số lớp học.")
